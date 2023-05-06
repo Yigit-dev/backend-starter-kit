@@ -1,0 +1,19 @@
+node_modules/
+build
+npm-debug.log
+.nyc
+.env
+.DS_Store
+
+# Logs
+logs
+.log
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+.idea
