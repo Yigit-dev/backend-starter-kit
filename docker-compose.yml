@@ -5,19 +5,22 @@ services:
     container_name: backend
     environment:
       MONGODB_CONNECTION_STRING: "mongodb://mongodb:27017"
-      PORT: 3000
       REDIS_URL: redis://redis:6379
-      DB_NAME: todo
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
     ports:
       - 3000:3000
     volumes:
       - ./backend:/usr/src/app/backend
       - /usr/src/app/backend/node_modules
-    working_dir: /usr/src/app/backend
-    command: ["nodemon", "--legacy-watch", "app.js"]
     depends_on:
-      - mongodb
-      - redis
+      mongodb:
+        condition: service_started
+      redis:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - my_network
   mongodb:
     container_name: mongodb
     image: mongo:latest
@@ -26,11 +29,33 @@ services:
     restart: always
     volumes:
       - mongodb:/data/db
+    networks:
+      - my_network
   redis:
     image: redis
     container_name: redis
     ports:
       - 6379:6379
     restart: always
+    networks:
+      - my_network
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 volumes:
   mongodb:
+  rabbitmq:
+networks:
+  my_network:
