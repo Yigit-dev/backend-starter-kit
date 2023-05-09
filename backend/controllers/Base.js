@@ -1,7 +1,7 @@
 const APIError = require('../errors/ApiError')
 const httpStatus = require('http-status')
 const handleAsync = require('../scripts/helpers/handleAsync')
-const handleError = require('../errors/handleError')
+const handleError = require('../scripts/helpers/handleError')
 
 class BaseController {
   constructor(service) {

@@ -1,6 +1,6 @@
 const { client } = require('../config/redis')
-const APIError = require('../errors/ApiError')
 const handleAsync = require('../scripts/helpers/handleAsync')
+const handleError = require('../scripts/helpers/handleError')
 
 class BaseCacheService {
   constructor(model, ttl) {
@@ -23,7 +23,9 @@ class BaseCacheService {
 
   async cachingLoad(fetchFromDatabase) {
     let [data, error] = await handleAsync(this.getCachedData(this.cacheKey))
-    if (error) throw new APIError(`Error in cachingLoad: ${error.message}`)
+    if (error) {
+      handleError(error)
+    }
     if (data === null) {
       console.log('FETCH FROM DATABASE AND WRITE REDIS')
       data = await fetchFromDatabase()
@@ -36,14 +38,18 @@ class BaseCacheService {
 
   async addToCache(data) {
     const [existingValues, error] = await handleAsync(this.getCachedData())
-    if (error) throw new APIError(`Error in addToCache: ${error.message}`)
+    if (error) {
+      handleError(error)
+    }
     const updatedValues = existingValues ? [...existingValues, data] : [data]
     await this.setCachedData(updatedValues)
   }
 
   async updateInCache(id, updatedData) {
     const [existingValues, error] = await handleAsync(this.getCachedData())
-    if (error) throw new APIError(`Error in updateInCache: ${error.message}`)
+    if (error) {
+      handleError(error)
+    }
 
     const index = existingValues.findIndex(item => item._id && item._id.toString() === id)
     if (index === -1) return
@@ -54,7 +60,9 @@ class BaseCacheService {
 
   async removeFromCache(id) {
     const [existingValues, error] = await handleAsync(this.getCachedData())
-    if (error) throw new APIError(`Error in removeFromCache: ${error.message}`)
+    if (error) {
+      handleError(error)
+    }
 
     const itemIndex = existingValues.findIndex(item => item._id && item._id.toString() === id)
     if (itemIndex === -1) return
@@ -63,4 +71,5 @@ class BaseCacheService {
     await this.setCachedData(existingValues)
   }
 }
+
 module.exports = BaseCacheService

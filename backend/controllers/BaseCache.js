@@ -1,8 +1,7 @@
-const httpStatus = require('http-status')
-const handleAsync = require('../scripts/helpers/handleAsync')
 const BaseController = require('./Base')
-const handleError = require('../errors/handleError')
-
+const handleAsync = require('../scripts/helpers/handleAsync')
+const handleError = require('../scripts/helpers/handleError')
+const httpStatus = require('http-status')
 class BaseCacheController extends BaseController {
   constructor(service) {
     super(service)

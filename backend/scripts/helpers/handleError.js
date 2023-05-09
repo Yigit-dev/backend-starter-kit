@@ -1,10 +1,10 @@
-const APIError = require('../errors/ApiError')
+const APIError = require('../../errors/ApiError')
 
 const handleError = (error, next) => {
   if (error instanceof APIError) {
     return next(error)
   }
-  return next(new APIError(error.message, error.statusCode))
+  return next(new APIError(error.message, error.statusCode, __filename, __line))
 }
 
 module.exports = handleError
