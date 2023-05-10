@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const validate = require('../middlewares/validate')
-const authenticate = require('../middlewares/auth')
-const schemas = require('../validations/user')
-const UserController = require('../controllers/User')
+const validate = require('~/middlewares/validate')
+const authenticate = require('~/middlewares/auth')
+const schemas = require('@/validations/todo')
+const UserController = require('@/controllers/User')
 
 router.get('/', UserController.load)
 router.route('/').post(validate(schemas.createValidation), UserController.signup)

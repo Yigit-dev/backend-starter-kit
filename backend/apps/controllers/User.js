@@ -1,7 +1,7 @@
 const httpStatus = require('http-status')
-const APIError = require('../errors/ApiError')
-const { UserService } = require('../services')
-const BaseController = require('./Base')
+const APIError = require('../core/errors/ApiError')
+const { UserService } = require('../core/services')
+const BaseController = require('../core/controllers/Base')
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../scripts/helpers/auth')
 
 class UserController extends BaseController {

@@ -1,6 +1,6 @@
-const { client } = require('../config/redis')
-const handleAsync = require('../scripts/helpers/handleAsync')
-const handleError = require('../scripts/helpers/handleError')
+const { client } = require('~/config/redis')
+const handleAsync = require('~/utils/handleAsync')
+const handleError = require('~/utils/handleError')
 
 class BaseCacheService {
   constructor(model, ttl) {

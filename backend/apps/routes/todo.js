@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const validate = require('../middlewares/validate')
-const auth = require('../middlewares/auth')
-const schema = require('../validations/todo')
-const todo = require('../controllers/Todo')
+const validate = require('~/middlewares/validate')
+const auth = require('~/middlewares/auth')
+const schema = require('@/validations/todo')
+const todo = require('@/controllers/Todo')
 
 // NORMAL
 // router.route('/').get(todo.load)

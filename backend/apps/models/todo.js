@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const logger = require('../scripts/logger/todo')
+const logger = require('@/logger/todo')
 
 const TodoSchema = new mongoose.Schema(
   {

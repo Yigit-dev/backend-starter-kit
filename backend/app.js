@@ -1,12 +1,12 @@
 const express = require('express')
-const config = require('./config')
+const config = require('~/config')
 const PORT = process.env.PORT || 3000
 const app = express()
 config(app)
 
 // -------------------- RABBITMQ EXAMPLE
 // const RabbitMQConnection = require('./services/RabbitMQConnection')
-const QueueManager = require('./services/QueueManager')
+const QueueManager = require('~/services/QueueManager')
 async function main() {
   // RabbitMQ bağlantısını kuruyoruz
 
@@ -63,7 +63,7 @@ main()
 // -- RabbitMQ Example END -----------
 
 // --- ROUTES ----
-const { TodoRoutes, UserRoutes } = require('./routes')
+const { TodoRoutes, UserRoutes } = require('@/routes')
 // app.use('/', router)
 app.use('/todos', TodoRoutes)
 app.use('/users', UserRoutes)

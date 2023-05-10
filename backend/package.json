@@ -10,6 +10,10 @@
   "keywords": [],
   "author": "Yigit Cakmak <yigitcakmakx@gmail.com>",
   "license": "ISC",
+  "_moduleAliases": {
+    "~": "./core",
+    "@": "./apps"
+  },
   "dependencies": {
     "amqplib": "^0.10.3",
     "compression": "^1.7.4",
