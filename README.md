@@ -39,12 +39,11 @@ const BaseService = require('~/services/Base')
 class TodoService extends BaseService {
   constructor(model) {
     super(model)
-    this.useCache = useCache
   }
 	
-	// Todo Specific Methods...
+   // Todo Specific Methods...
 
-	// @override: async update() {}
+  // @override: async update() {}
 }
 
 // You have to give the Model constructor
@@ -53,7 +52,7 @@ module.exports = new TodoService(Todo)
 
 ## Base Controller
 
-**The Base Controller** allows access to **the Base Service** via request and response. It provides methods that perform basic operations implemented in **the Base Service**. **The Base Controller** class expects a service parameter from you. Simply provide the service, and it performs all basic operations dynamically.
+[The Base Controller](./backend/core/services/BaseController.js) allows access to [The Base Service](./backend/core/services/Base.js) via request and response. It provides methods that perform basic operations implemented in **The Base Service**. **The Base Controller** class expects a service parameter from you. Simply provide the service, and it performs all basic operations dynamically.
 
 Example:
 
@@ -142,9 +141,9 @@ class TodoService extends BaseService {
       this.baseCacheService = new BaseCacheService(model, 600)
     }
   }
-	// Todo Specific Methods...
+  // Todo Specific Methods...
 
-	// @override: async create() {}
+ // @override: async create() {}
 }
 
 // You have to give the Model constructor and useCache parameter
