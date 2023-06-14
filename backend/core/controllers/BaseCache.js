@@ -1,4 +1,4 @@
-const BaseController = require('./Base')
+const BaseController = require('~/controllers/Base')
 const handleAsync = require('~/utils/handleAsync')
 const handleError = require('~/utils/handleError')
 const httpStatus = require('http-status')

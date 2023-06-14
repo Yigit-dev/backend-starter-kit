@@ -1,7 +1,7 @@
 const httpStatus = require('http-status')
 const User = require('@/models/user')
-const BaseService = require('./Base')
-const APIError = require('@/errors/ApiError')
+const BaseService = require('~/services/Base')
+const APIError = require('~/errors/ApiError')
 const { generateAccessToken, generateRefreshToken } = require('~/utils/auth')
 
 class UserService extends BaseService {

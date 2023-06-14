@@ -1,3 +1,4 @@
+require('module-alias/register')
 const express = require('express')
 const config = require('~/config')
 const PORT = process.env.PORT || 3000
@@ -59,7 +60,6 @@ async function main() {
 }
 
 main()
-
 // -- RabbitMQ Example END -----------
 
 // --- ROUTES ----

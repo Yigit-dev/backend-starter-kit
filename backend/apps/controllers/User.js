@@ -1,30 +1,28 @@
 const httpStatus = require('http-status')
-const APIError = require('../core/errors/ApiError')
-const { UserService } = require('../core/services')
-const BaseController = require('../core/controllers/Base')
-const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../scripts/helpers/auth')
+const APIError = require('~/errors/ApiError')
+const { UserService } = require('@/services')
+const handleAsync = require('~/utils/handleAsync')
+const handleError = require('~/utils/handleError')
+const BaseController = require('~/controllers/Base')
+const { passwordToHash, generateAccessToken, generateRefreshToken } = require('~/utils/auth')
 
 class UserController extends BaseController {
   constructor(service) {
     super(service)
-    this.signup = this.signup.bind(this)
+    this.service = service
     this.login = this.login.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.resetPassword = this.resetPassword.bind(this)
   }
-  // use than-catch
-  async signup(req, res, next) {
+
+  signup = async (req, res, next) => {
     req.body.password = passwordToHash(req.body.password)
-    this.service
-      .insert(req.body)
-      .then(response => {
-        res.status(httpStatus.CREATED).send(response)
-      })
-      .catch(e => {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)
-      })
+    const [response, error] = await handleAsync(this.service.insert(req.body))
+    if (error) return handleError(error, next)
+
+    res.status(httpStatus.CREATED).send(response)
   }
-  // use try-catch
+
   async login(req, res, next) {
     req.body.password = passwordToHash(req.body.password)
     try {

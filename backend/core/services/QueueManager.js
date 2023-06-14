@@ -1,6 +1,6 @@
 const handleAsync = require('~/utils/handleAsync')
 const handleError = require('~/utils/handleError')
-const RabbitMQConnection = require('./RabbitMQConnection')
+const RabbitMQConnection = require('~/services/RabbitMQConnection')
 
 class QueueManager {
   constructor({ queueName }) {

@@ -4,7 +4,7 @@ const handleError = (error, next) => {
   if (error instanceof APIError) {
     return next(error)
   }
-  return next(new APIError(error.message, error.statusCode, __filename, __line))
+  return new APIError(error.message, error.statusCode, __filename)
 }
 
 module.exports = handleError

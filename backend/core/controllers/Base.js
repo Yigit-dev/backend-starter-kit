@@ -8,6 +8,7 @@ class BaseController {
   }
 
   create = async (req, res, next) => {
+    console.log('BURASI MI  ERROR', this.service)
     const [response, error] = await handleAsync(this.service.insert(req.body))
     if (error) return handleError(error, next)
     res.status(httpStatus.CREATED).send(response)
