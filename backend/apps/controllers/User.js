@@ -4,7 +4,7 @@ const { UserService } = require('@/services')
 const handleAsync = require('~/utils/handleAsync')
 const handleError = require('~/utils/handleError')
 const BaseController = require('~/controllers/Base')
-const { passwordToHash, generateAccessToken, generateRefreshToken } = require('~/utils/auth')
+const { passwordToHash } = require('~/utils/auth')
 
 class UserController extends BaseController {
   constructor(service) {
@@ -18,7 +18,16 @@ class UserController extends BaseController {
   signup = async (req, res, next) => {
     req.body.password = passwordToHash(req.body.password)
     const [response, error] = await handleAsync(this.service.insert(req.body))
-    if (error) return handleError(error, next)
+    if (error) {
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error)
+      return handleError(error, next)
+    }
+
+    const [profile, profileError] = await handleAsync(this.service.createProfile(response._id))
+    if (profileError) {
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error)
+      return handleError(error, next)
+    }
 
     res.status(httpStatus.CREATED).send(response)
   }
